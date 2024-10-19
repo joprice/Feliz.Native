@@ -2,6 +2,7 @@ namespace Feliz.Native
 
 open Fable.Core
 open Fable.Core.JsInterop
+open Fable.React
 
 [<Erase>] type IViewProp = interface end
 [<Erase>] type IImageProp = interface end

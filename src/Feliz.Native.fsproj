@@ -10,7 +10,6 @@
     <RepositoryUrl>https://github.com/martinmoec/Feliz.Native</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Interop.fs" />
     <Compile Include="Properties.fs" />
     <Compile Include="Native.fs" />
   </ItemGroup>
