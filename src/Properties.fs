@@ -44,7 +44,7 @@ type Prop<'a> =
     static member inline key (value: string) = unbox<'a> ("key", value)
     static member inline key (value: int) = unbox<'a> ("key", value)
     static member inline custom (key: string, value: obj) = unbox<'a> (key, value)
-    static member inline style (x:seq<Feliz.IStyleAttribute>) = !!("style", keyValueList CaseRules.LowerFirst x)
+    static member inline style (x:seq<Feliz.IStyleAttribute>) = unbox<'a> !!("style", keyValueList CaseRules.LowerFirst x)
     static member inline onLayout (x:obj -> unit) = unbox<'a>("onLayout", x)
     static member inline children (elements: ReactElement list) = unbox<'a> (Feliz.prop.children elements)
 
