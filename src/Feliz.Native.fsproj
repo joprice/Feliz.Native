@@ -4,10 +4,11 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <PackageId>Feliz.Native</PackageId>
     <Version>0.0.2-alpha</Version>
-    <PackageTags>Feliz;Fable;react-native;Fsharp;FSharp Feliz ReactNative;</PackageTags>
+    <PackageTags>Feliz;Fable;react-native;Fsharp;FSharp Feliz ReactNative;fable-javascript</PackageTags>
     <Description>Feliz/Fable bindings for React Native</Description>
     <PackageProjectUrl>https://github.com/martinmoec/Feliz.Native</PackageProjectUrl>
     <RepositoryUrl>https://github.com/martinmoec/Feliz.Native</RepositoryUrl>
+    <FablePackageType>library</FablePackageType>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties.fs" />
@@ -18,6 +19,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Fable.Core" Version="3.4.0" />
+    <PackageReference Include="Fable.Package.SDK" Version="1.1.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Feliz" Version="1.44.0" />
   </ItemGroup>
 </Project>
