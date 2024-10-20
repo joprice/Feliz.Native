@@ -27,7 +27,7 @@ type Native =
     static member inline text (props:seq<ITextProp>) =
         Feliz.Interop.reactApi.createElement (import "Text" "react-native", createObj !!props)
         
-    static member inline rawText (x:string) = unbox x
+    static member inline rawText (x:string): ReactElement = unbox x
 
     static member inline touchableHighlight (props:seq<ITouchableHighlightProp>) =
         Feliz.Interop.reactApi.createElement (import "TouchableHighlight" "react-native", createObj !!props)
