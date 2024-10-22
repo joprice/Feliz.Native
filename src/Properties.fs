@@ -283,7 +283,7 @@ type textInput =
     static member inline value (x:string): ITextInputProp = unbox ("value", x)
 
 [<Erase>]
-type touchableHighligh =
+type touchableHighlight =
     inherit Prop<ITouchableHighlightProp>
     static member inline activeOpacity (x:float): ITouchableHighlightProp = unbox ("activeOpacity", x)
     static member inline disabled (x:bool): ITouchableHighlightProp = unbox ("disabled", x)
