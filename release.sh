@@ -1,1 +1,1 @@
- dotnet pack -p:PackageVersion=0.0.10-joprice -c Release src
+ dotnet pack -p:PackageVersion=0.0.12-joprice -c Release src

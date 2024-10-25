@@ -6,12 +6,16 @@ open Fable.React
 open Feliz
 
 [<Erase>] type IViewProp = interface end
+[<Erase>] type IAnimatedViewProperties = inherit IViewProp
 [<Erase>] type IImageProp = interface end
+[<Erase>] type IAnimatedImageProperties = inherit IImageProp 
 [<Erase>] type IImageBackgroundProp = interface end
 [<Erase>] type IKeyboardAvoidingViewProp = interface end
 [<Erase>] type ISafeAreaViewProp = interface end
 [<Erase>] type IScrollViewProp = interface end
+[<Erase>] type IAnimatedScrollViewProperties = inherit IScrollViewProp 
 [<Erase>] type ITextProp = interface end
+[<Erase>] type IAnimatedTextProperties = inherit ITextProp 
 [<Erase>] type ITextInputProp = interface end
 [<Erase>] type ITouchableHighlightProp = interface end
 [<Erase>] type ITouchableOpacityProp = interface end
@@ -175,6 +179,7 @@ type safeAreaView =
 [<Erase>]
 type scrollView =
     inherit Prop<IScrollViewProp>
+    interface IAnimatedScrollViewProperties
     static member inline alwaysBounceHorizontal (x:bool): IScrollViewProp = unbox ("alwaysBounceHorizontal", x)
     static member inline alwaysBounceVertical (x:bool): IScrollViewProp = unbox ("alwaysBounceVertical", x)
     static member inline automaticallyAdjustContentInsets (x:bool): IScrollViewProp = unbox ("automaticallyAdjustContentInsets", x)
@@ -231,6 +236,7 @@ type switch =
 [<Erase>]
 type text =
     inherit Prop<ITextProp>
+    interface IAnimatedTextProperties
     static member inline accessibilityHint (x:string): ITextProp = unbox ("accessibilityHint", x)
     static member inline accessibilityLabel (x:string): ITextProp = unbox ("accessibilityLabel", x)
     static member inline accessible (x:bool): ITextProp = unbox ("accessible", x)
@@ -308,6 +314,7 @@ type touchableOpacity =
 [<Erase>]
 type view =
     inherit Prop<IViewProp>
+    interface IAnimatedViewProperties
     static member inline accessibilityElementsHidden (x:bool): IViewProp = unbox ("accessibilityElementsHidden", x)
     static member inline accessibilityHint (x:string): IViewProp = unbox ("accessibilityHint", x)
     static member inline accessibilityLanguage (x:string): IViewProp = unbox ("accessibilityLanguage", x)
