@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <PackageId>Feliz.Native.Sample</PackageId>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Sample.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Fable.Core" Version="3.4.0" />
+    <PackageReference Include="Feliz" Version="2.8.0" />
+    <ProjectReference Include="..\src\Feliz.Native.fsproj" />
+  </ItemGroup>
+</Project>
