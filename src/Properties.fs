@@ -5,8 +5,8 @@ open Fable.Core.JsInterop
 open Fable.React
 open Feliz
 
-[<Erase>] type IViewProp = interface end
-[<Erase>] type IAnimatedViewProperties = inherit IViewProp
+[<Erase>] type IAnimatedViewProperties = interface end
+[<Erase>] type IViewProp = inherit IAnimatedViewProperties
 [<Erase>] type IImageProp = interface end
 [<Erase>] type IAnimatedImageProperties = inherit IImageProp 
 [<Erase>] type IImageBackgroundProp = interface end
@@ -43,6 +43,7 @@ type style =
     static member inline shadowColor (x:string): IStyleAttribute = Interop.mkStyle "shadowColor" x
     
 [<Erase>]
+[<Interface>]
 type Prop<'a> =
     static member inline attribution (value: string): 'a = unbox<'a> ("attribution", value)
     // static member inline ref (value: (obj -> unit)): 'a = unbox<'a> ("ref", value)
@@ -89,6 +90,7 @@ module Types =
     }
 
 [<Erase>]
+[<Interface>]
 type activityIndicator =
     inherit Prop<IActivityIndicatorProp>
     static member inline animating (x:bool): IActivityIndicatorProp = unbox ("animating", x)
@@ -99,6 +101,7 @@ type activityIndicator =
 
 
 [<Erase>]
+[<Interface>]
 type image =
     inherit Prop<IImageProp>
     static member inline accessibilityLabel (x:string): IImageProp = unbox ("accessibilityLabel", x)
@@ -132,6 +135,7 @@ type image =
     static member inline resizeMode (x:string): IImageProp = unbox ("resizeMode", x)
 
 [<Erase>]
+[<Interface>]
 type imageBackground =
     inherit Prop<IImageBackgroundProp>
     static member inline defaultSource (x:string): IImageBackgroundProp = unbox ("defaultSource", image.localImage x)
@@ -140,6 +144,7 @@ type imageBackground =
     static member inline imageStyle (x:seq<Feliz.IStyleAttribute>): IImageBackgroundProp = unbox("imageStyle", keyValueList CaseRules.LowerFirst x)
 
 [<Erase>]
+[<Interface>]
 type keyboardAvoidingView =
     inherit Prop<IKeyboardAvoidingViewProp>
     
@@ -150,6 +155,7 @@ type keyboardAvoidingView =
     static member inline keyboardVerticalOffset (x:int): IKeyboardAvoidingViewProp = unbox ("keyboardVerticalOffset", x)
 
 [<Erase>]
+[<Interface>]
 type pressable =
     inherit Prop<IPressableProp>
     static member inline delayLongPress (x:float): IPressableProp = unbox ("delayLongPress", x)
@@ -172,14 +178,16 @@ type pressable =
     
 
 [<Erase>]
+[<Interface>]
 type safeAreaView =
     inherit Prop<ISafeAreaViewProp>
     static member inline emulateUnlessSupported (value:bool): ISafeAreaViewProp = unbox ("emulateUnlessSupported", value)
 
 [<Erase>]
+[<Interface>]
 type scrollView =
     inherit Prop<IScrollViewProp>
-    interface IAnimatedScrollViewProperties
+    inherit IAnimatedScrollViewProperties
     static member inline alwaysBounceHorizontal (x:bool): IScrollViewProp = unbox ("alwaysBounceHorizontal", x)
     static member inline alwaysBounceVertical (x:bool): IScrollViewProp = unbox ("alwaysBounceVertical", x)
     static member inline automaticallyAdjustContentInsets (x:bool): IScrollViewProp = unbox ("automaticallyAdjustContentInsets", x)
@@ -223,6 +231,7 @@ type scrollView =
 type TrackColor = {``false``:string; ``true``:string}
 
 [<Erase>]
+[<Interface>]
 type switch =
     inherit Prop<ISwitchProp>
     static member inline disabled (x:bool): ISwitchProp = unbox ("disabled", x)
@@ -234,9 +243,10 @@ type switch =
     static member inline value (x:string): ISwitchProp = unbox ("value", x)
 
 [<Erase>]
+[<Interface>]
 type text =
     inherit Prop<ITextProp>
-    interface IAnimatedTextProperties
+    inherit IAnimatedTextProperties
     static member inline accessibilityHint (x:string): ITextProp = unbox ("accessibilityHint", x)
     static member inline accessibilityLabel (x:string): ITextProp = unbox ("accessibilityLabel", x)
     static member inline accessible (x:bool): ITextProp = unbox ("accessible", x)
@@ -264,6 +274,8 @@ type text =
     static member inline text (x:int): ITextProp = unbox ("children", unbox(string x))
     static member inline userSelect (x:string): ITextProp = unbox ("userSelect", x)
 
+[<Erase>]
+[<Interface>]
 type textInput =
     inherit Prop<ITextInputProp>
     static member inline autoCapitalize (x:string): ITextInputProp = unbox ("autoCapitalize", x)
@@ -289,6 +301,7 @@ type textInput =
     static member inline value (x:string): ITextInputProp = unbox ("value", x)
 
 [<Erase>]
+[<Interface>]
 type touchableHighlight =
     inherit Prop<ITouchableHighlightProp>
     static member inline activeOpacity (x:float): ITouchableHighlightProp = unbox ("activeOpacity", x)
@@ -301,6 +314,7 @@ type touchableHighlight =
     static member inline children (x:'a): ITouchableHighlightProp = unbox ("children", x)
 
 [<Erase>]
+[<Interface>]
 type touchableOpacity =
     inherit Prop<ITouchableOpacityProp>
     static member inline activeOpacity (x:float): ITouchableOpacityProp = unbox ("activeOpacity", x)
@@ -311,10 +325,11 @@ type touchableOpacity =
     static member inline nativeId (x:string): ITouchableOpacityProp = unbox ("nativeID", x)
     static member inline children (x:'a): ITouchableOpacityProp = unbox ("children", x)
 
+
 [<Erase>]
+[<Interface>]
 type view =
     inherit Prop<IViewProp>
-    interface IAnimatedViewProperties
     static member inline accessibilityElementsHidden (x:bool): IViewProp = unbox ("accessibilityElementsHidden", x)
     static member inline accessibilityHint (x:string): IViewProp = unbox ("accessibilityHint", x)
     static member inline accessibilityLanguage (x:string): IViewProp = unbox ("accessibilityLanguage", x)
@@ -348,3 +363,10 @@ type view =
     static member inline removeClippedSubviews (x:bool): IViewProp = unbox ("removeClippedSubviews", x)
     static member inline testID (x:string): IViewProp = unbox ("testID", x)
     static member inline source (value : {|uri : string|}): IViewProp = unbox ("source", value)
+
+// [<Erase>]
+// [<Interface>]
+// type animatedView =
+//     inherit view
+//
+

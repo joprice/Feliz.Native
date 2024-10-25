@@ -8,17 +8,17 @@ open Fable.Core.JsInterop
 [<Erase>]
 type Native =
     
-    static member inline animatedView (props: IAnimatedViewProperties list) (children: ReactElement list): ReactElement =
-          Feliz.Interop.reactApi.createElement( import "Animated.View" "react-native", createObj !!props)
+    static member inline animatedView (props: IAnimatedViewProperties list): ReactElement =
+          Feliz.Interop.reactApi.createElement(import "Animated.View" "react-native", createObj !!props)
 
-    static member inline animatedScrollView (props: IAnimatedScrollViewProperties list) (children: ReactElement list): ReactElement =
-          Feliz.Interop.reactApi.createElement( import "Animated.ScrollView" "react-native", createObj !!props)
+    static member inline animatedScrollView (props: IAnimatedScrollViewProperties list): ReactElement =
+          Feliz.Interop.reactApi.createElement(import "Animated.ScrollView" "react-native", createObj !!props)
 
-    static member inline animatedImage (props: IAnimatedImageProperties list) (children: ReactElement list): ReactElement =
-          Feliz.Interop.reactApi.createElement( import "Animated.Image" "react-native", createObj !!props)
+    static member inline animatedImage (props: IAnimatedImageProperties list): ReactElement =
+          Feliz.Interop.reactApi.createElement(import "Animated.Image" "react-native", createObj !!props)
 
-    static member inline animatedText (props: IAnimatedTextProperties list) (children: ReactElement list): ReactElement =
-          Feliz.Interop.reactApi.createElement( import "Animated.Text" "react-native", createObj !!props)
+    static member inline animatedText (props: IAnimatedTextProperties list): ReactElement =
+          Feliz.Interop.reactApi.createElement(import "Animated.Text" "react-native", createObj !!props)
 
     static member inline view (props: seq<IViewProp>) =
         Feliz.Interop.reactApi.createElement (import "View" "react-native", createObj !!props)
@@ -329,3 +329,4 @@ module Platform =
         abstract ``select``<'a> : obj -> 'a
     
     let Platform : IPlatform = import "Platform" "react-native"
+
