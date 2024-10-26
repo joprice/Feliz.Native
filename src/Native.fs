@@ -97,25 +97,32 @@ module Animated =
         | Identity
         | Clamp
 
+    //TODO: convert to abstract jsOptions obj
     and InterpolationConfigType =
+        [<EmitMethod("easing")>]
         member __.easing(value: float) : float = jsNative
 
+        [<EmitMethod("extrapolate")>]
         member __.extrapolate
             with get (): ExtrapolateType = jsNative
             and set (v: ExtrapolateType): unit = jsNative
 
+        [<EmitMethod("extrapolateLeft")>]
         member __.extrapolateLeft
             with get (): ExtrapolateType = jsNative
             and set (v: ExtrapolateType): unit = jsNative
 
+        [<EmitMethod("extrapolateRight")>]
         member __.extrapolateRight
             with get (): ExtrapolateType = jsNative
             and set (v: ExtrapolateType): unit = jsNative
 
+        [<EmitMethod("inputRange")>]
         member __.inputRange
             with get (): ResizeArray<float> = jsNative
             and set (v: ResizeArray<float>): unit = jsNative
 
+        [<EmitMethod("outputRange")>]
         member __.outputRange
             with get (): U2<ResizeArray<float>, ResizeArray<string>> = jsNative
             and set (v: U2<ResizeArray<float>, ResizeArray<string>>): unit = jsNative

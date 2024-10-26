@@ -1,0 +1,2 @@
+fable: 
+	dotnet fable sample

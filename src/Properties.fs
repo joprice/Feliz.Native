@@ -74,15 +74,30 @@ type SkewYTransform =
 
     interface ITransform
 
+
 type transforms =
     interface ITransformsStyle
-    // | Transform of ITransform array
-    // | TransformMatrix of ResizeArray<float>
-    static member inline rotation(value: float) : ITransformsStyle = unbox ("rotation", value)
-    static member inline scaleX(value: float) : ITransformsStyle = unbox ("scaleX", value)
-    static member inline scaleY(value: float) : ITransformsStyle = unbox ("scaleY", value)
-    static member inline translateX(value: float) : ITransformsStyle = unbox ("translateX", value)
-    static member inline translateY(value: float) : ITransformsStyle = unbox ("translateY", value)
+
+    static member inline perspective(value: float) : ITransformsStyle =
+        unbox (createObj [ "perspective", value ])
+
+    //TODO
+    // {matrix: number[]},
+    static member inline rotate(value: IAngle) : ITransformsStyle = unbox (createObj [ "rotate", value ])
+    static member inline rotateX(value: IAngle) : ITransformsStyle = unbox (createObj [ "rotateX", value ])
+    static member inline rotateY(value: IAngle) : ITransformsStyle = unbox (createObj [ "rotateY", value ])
+    static member inline rotateZ(value: IAngle) : ITransformsStyle = unbox (createObj [ "rotateZ", value ])
+    static member inline scale(value: float) : ITransformsStyle = unbox (createObj [ "scale", value ])
+    static member inline scaleX(value: float) : ITransformsStyle = unbox (createObj [ "scaleX", value ])
+    static member inline scaleY(value: float) : ITransformsStyle = unbox (createObj [ "scaleY", value ])
+    static member inline skewX(value: float) : ITransformsStyle = unbox (createObj [ "skewX", value ])
+    static member inline skewY(value: float) : ITransformsStyle = unbox (createObj [ "skewY", value ])
+
+    static member inline translateX(value: float) : ITransformsStyle =
+        unbox (createObj [ "translateX", value ])
+
+    static member inline translateY(value: float) : ITransformsStyle =
+        unbox (createObj [ "translateY", value ])
 
 [<Erase>]
 type IAnimatedViewProperties = interface end
@@ -169,7 +184,7 @@ type style =
 
     static member inline shadowColor(x: string) : IStyleAttribute = Interop.mkStyle "shadowColor" x
 
-    static member inline transform(value: seq<ITransformsStyle>) : IStyleAttribute = Interop.mkStyle "transform" value
+    static member inline transform(value: ITransformsStyle array) : IStyleAttribute = Interop.mkStyle "transform" value
 
 [<Erase>]
 type Prop<'a> =
