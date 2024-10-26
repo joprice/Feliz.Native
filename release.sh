@@ -1,1 +1,1 @@
- dotnet pack -p:PackageVersion=0.0.19-joprice -c Release src
+ dotnet pack -p:PackageVersion=0.0.21-joprice -c Release src
