@@ -5,6 +5,85 @@ open Fable.Core.JsInterop
 // open Fable.React
 open Feliz
 
+type IStyle = interface end
+
+type ITransformsStyle =
+    inherit IStyle
+
+type ITransform = interface end
+
+type IAngle = interface end
+
+type PerpectiveTransform =
+    { perspective: float }
+
+    interface ITransform
+
+type RotateTransform =
+    { rotate: IAngle }
+
+    interface ITransform
+
+type RotateXTransform =
+    { rotateX: IAngle }
+
+    interface ITransform
+
+type RotateYTransform =
+    { rotateY: IAngle }
+
+    interface ITransform
+
+type RotateZTransform =
+    { rotateZ: IAngle }
+
+    interface ITransform
+
+type ScaleTransform =
+    { scale: float }
+
+    interface ITransform
+
+type ScaleXTransform =
+    { scaleX: float }
+
+    interface ITransform
+
+type ScaleYTransform =
+    { scaleY: float }
+
+    interface ITransform
+
+type TranslateXTransform =
+    { translateX: float }
+
+    interface ITransform
+
+type TranslateYTransform =
+    { translateY: float }
+
+    interface ITransform
+
+type SkewXTransform =
+    { skewX: IAngle }
+
+    interface ITransform
+
+type SkewYTransform =
+    { skewY: IAngle }
+
+    interface ITransform
+
+type transforms =
+    interface ITransformsStyle
+    // | Transform of ITransform array
+    // | TransformMatrix of ResizeArray<float>
+    static member inline rotation(value: float) : ITransformsStyle = unbox ("rotation", value)
+    static member inline scaleX(value: float) : ITransformsStyle = unbox ("scaleX", value)
+    static member inline scaleY(value: float) : ITransformsStyle = unbox ("scaleY", value)
+    static member inline translateX(value: float) : ITransformsStyle = unbox ("translateX", value)
+    static member inline translateY(value: float) : ITransformsStyle = unbox ("translateY", value)
+
 [<Erase>]
 type IAnimatedViewProperties = interface end
 
@@ -61,6 +140,12 @@ type length =
     static member inline dip(value: double) : Feliz.Styles.ICssUnit = unbox ((unbox<string> value))
     static member inline dip(value: int) : Feliz.Styles.ICssUnit = unbox ((unbox<string> value))
 
+    [<Emit("$0 + \"deg\"")>]
+    static member deg(_: float) : IAngle = jsNative
+
+    [<Emit("$0 + \"rad\"")>]
+    static member rad(_: float) : IAngle = jsNative
+
 type style =
     inherit Feliz.style
     static member inline borderTopLeftRadius(x: int) : IStyleAttribute = Interop.mkStyle "borderTopLeftRadius" x
@@ -83,6 +168,8 @@ type style =
         Interop.mkStyle "shadowOffset" x
 
     static member inline shadowColor(x: string) : IStyleAttribute = Interop.mkStyle "shadowColor" x
+
+    static member inline transform(value: seq<ITransformsStyle>) : IStyleAttribute = Interop.mkStyle "transform" value
 
 [<Erase>]
 type Prop<'a> =

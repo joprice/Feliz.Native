@@ -9,4 +9,8 @@ let x =
               [ Native.keyboardAvoidingView [ keyboardAvoidingView.style [] ]
                 Native.animatedView [ animatedView.style [] ]
                 Native.animatedText [ animatedText.style [] ]
-                Native.text [ text.style [ style.flex 1 ] ] ] ]
+                Native.text
+                    [ text.style
+                          [ style.flex 1
+                            style.transform [ transform.translateY (20) ]
+                            style.transform [ transforms.translateY (20) ] ] ] ] ]
