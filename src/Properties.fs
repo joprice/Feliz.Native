@@ -84,19 +84,53 @@ type transforms =
     //TODO
     // {matrix: number[]},
     static member inline rotate(value: IAngle) : ITransformsStyle = unbox (createObj [ "rotate", value ])
+
+    //TODO:animated angle?
+    static member inline rotate(value: Animated.AnimatedValue) : ITransformsStyle =
+        unbox (createObj [ "rotate", value ])
+
     static member inline rotateX(value: IAngle) : ITransformsStyle = unbox (createObj [ "rotateX", value ])
+
+    static member inline rotateX(value: Animated.AnimatedValue) : ITransformsStyle =
+        unbox (createObj [ "rotateX", value ])
+
     static member inline rotateY(value: IAngle) : ITransformsStyle = unbox (createObj [ "rotateY", value ])
+
+    static member inline rotateY(value: Animated.AnimatedValue) : ITransformsStyle =
+        unbox (createObj [ "rotateY", value ])
+
     static member inline rotateZ(value: IAngle) : ITransformsStyle = unbox (createObj [ "rotateZ", value ])
+
+    static member inline rotateZ(value: Animated.AnimatedValue) : ITransformsStyle =
+        unbox (createObj [ "rotateZ", value ])
+
     static member inline scale(value: float) : ITransformsStyle = unbox (createObj [ "scale", value ])
+    static member inline scale(value: Animated.AnimatedValue) : ITransformsStyle = unbox (createObj [ "scale", value ])
     static member inline scaleX(value: float) : ITransformsStyle = unbox (createObj [ "scaleX", value ])
+
+    static member inline scaleX(value: Animated.AnimatedValue) : ITransformsStyle =
+        unbox (createObj [ "scaleX", value ])
+
     static member inline scaleY(value: float) : ITransformsStyle = unbox (createObj [ "scaleY", value ])
+
+    static member inline scaleY(value: Animated.AnimatedValue) : ITransformsStyle =
+        unbox (createObj [ "scaleY", value ])
+
     static member inline skewX(value: float) : ITransformsStyle = unbox (createObj [ "skewX", value ])
+    static member inline skewX(value: Animated.AnimatedValue) : ITransformsStyle = unbox (createObj [ "skewX", value ])
     static member inline skewY(value: float) : ITransformsStyle = unbox (createObj [ "skewY", value ])
+    static member inline skewY(value: Animated.AnimatedValue) : ITransformsStyle = unbox (createObj [ "skewY", value ])
 
     static member inline translateX(value: float) : ITransformsStyle =
         unbox (createObj [ "translateX", value ])
 
+    static member inline translateX(value: Animated.AnimatedValue) : ITransformsStyle =
+        unbox (createObj [ "translateX", value ])
+
     static member inline translateY(value: float) : ITransformsStyle =
+        unbox (createObj [ "translateY", value ])
+
+    static member inline translateY(value: Animated.AnimatedValue) : ITransformsStyle =
         unbox (createObj [ "translateY", value ])
 
 [<Erase>]
@@ -194,12 +228,13 @@ type Prop<'a> =
     static member inline key(value: int) : 'a = unbox<'a> ("key", value)
     static member inline custom(key: string, value: obj) : 'a = unbox<'a> (key, value)
 
-    static member inline style(x: seq<Feliz.IStyleAttribute>) : 'a =
-        unbox<'a> !!("style", keyValueList CaseRules.LowerFirst x)
+    static member inline style(x: #seq<Feliz.IStyleAttribute>) : 'a =
+        //unbox<'a> ("style", keyValueList CaseRules.LowerFirst x)
+        unbox<'a> ("style", createObj !!x)
 
     static member inline onLayout(x: obj -> unit) : 'a = unbox<'a> ("onLayout", x)
 
-    static member inline children(elements: ReactElement list) : 'a =
+    static member inline children(elements: seq<ReactElement>) : 'a =
         unbox<'a> (Feliz.prop.children elements)
 
 module Types =

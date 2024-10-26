@@ -11,6 +11,7 @@
     <FablePackageType>library</FablePackageType>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Animated.fs" />
     <Compile Include="Properties.fs" />
     <Compile Include="Native.fs" />
   </ItemGroup>

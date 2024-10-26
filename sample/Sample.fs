@@ -2,9 +2,22 @@ module Sample
 
 open Feliz
 open Feliz.Native
+open Fable.Core
+open JsInterop
+
+let value = new Animated.Value(0)
+
+let interpolated =
+  value.interpolate (
+    Animated.InterpolationConfigType(
+      inputRange = ResizeArray [| 0.0; 1.0 |],
+      outputRange = !^(ResizeArray [| 1.0; 0.99 |])
+    )
+  )
 
 let x =
   Native.view [
+    view.style [ style.paddingTop 10 ]
     view.children [
       Native.keyboardAvoidingView [ keyboardAvoidingView.style [] ]
       Native.animatedView [ animatedView.style [] ]
@@ -25,6 +38,14 @@ let x =
             transforms.translateY (20)
             transforms.skewX (20)
             transforms.skewY (20)
+
+            transforms.scale interpolated
+            transforms.scaleX interpolated
+            transforms.scaleY interpolated
+            transforms.translateX interpolated
+            transforms.translateY interpolated
+            transforms.skewX interpolated
+            transforms.skewY interpolated
           |]
         ]
       ]
