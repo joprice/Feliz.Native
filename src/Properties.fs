@@ -2,136 +2,137 @@ namespace Feliz.Native
 
 open Fable.Core
 open Fable.Core.JsInterop
-// open Fable.React
 open Feliz
 
-type IStyle = interface end
-
-type ITransformsStyle =
-    inherit IStyle
+[<Erase>]
+type ITransformsStyle = interface end
 
 type ITransform = interface end
 
 type IAngle = interface end
 
-type PerpectiveTransform =
-    { perspective: float }
+// NOTE: these are defined separately for reuuse by libraries like moti that take similar fields, but
+// for react native animated, they are always used via the lowercase type, since a single field is
+// required per transform object
+type Transforms =
+    static member inline perspective(value: float) : ITransformsStyle = unbox ("perspective", value)
 
-    interface ITransform
+    // {matrix: number[]},
+    static member inline rotate(value: IAngle) : ITransformsStyle = unbox ("rotate", value)
 
-type RotateTransform =
-    { rotate: IAngle }
+    //TODO:animated angle?
+    static member inline rotate(value: Animated.AnimatedValue) : ITransformsStyle = unbox ("rotate", value)
 
-    interface ITransform
+    static member inline rotateX(value: IAngle) : ITransformsStyle = unbox ("rotateX", value)
 
-type RotateXTransform =
-    { rotateX: IAngle }
+    static member inline rotateX(value: Animated.AnimatedValue) : ITransformsStyle = unbox ("rotateX", value)
 
-    interface ITransform
+    static member inline rotateY(value: IAngle) : ITransformsStyle = unbox ("rotateY", value)
 
-type RotateYTransform =
-    { rotateY: IAngle }
+    static member inline rotateY(value: Animated.AnimatedValue) : ITransformsStyle = unbox ("rotateY", value)
 
-    interface ITransform
+    static member inline rotateZ(value: IAngle) : ITransformsStyle = unbox ("rotateZ", value)
 
-type RotateZTransform =
-    { rotateZ: IAngle }
+    static member inline rotateZ(value: Animated.AnimatedValue) : ITransformsStyle = unbox ("rotateZ", value)
 
-    interface ITransform
+    static member inline scale(value: float) : ITransformsStyle = unbox ("scale", value)
+    static member inline scale(value: Animated.AnimatedValue) : ITransformsStyle = unbox ("scale", value)
+    static member inline scaleX(value: float) : ITransformsStyle = unbox ("scaleX", value)
 
-type ScaleTransform =
-    { scale: float }
+    static member inline scaleX(value: Animated.AnimatedValue) : ITransformsStyle = unbox ("scaleX", value)
 
-    interface ITransform
+    static member inline scaleY(value: float) : ITransformsStyle = unbox ("scaleY", value)
 
-type ScaleXTransform =
-    { scaleX: float }
+    static member inline scaleY(value: Animated.AnimatedValue) : ITransformsStyle = unbox ("scaleY", value)
 
-    interface ITransform
+    static member inline skewX(value: float) : ITransformsStyle = unbox ("skewX", value)
+    static member inline skewX(value: Animated.AnimatedValue) : ITransformsStyle = unbox ("skewX", value)
+    static member inline skewY(value: float) : ITransformsStyle = unbox ("skewY", value)
+    static member inline skewY(value: Animated.AnimatedValue) : ITransformsStyle = unbox ("skewY", value)
 
-type ScaleYTransform =
-    { scaleY: float }
+    static member inline translateX(value: float) : ITransformsStyle = unbox ("translateX", value)
 
-    interface ITransform
+    static member inline translateX(value: Animated.AnimatedValue) : ITransformsStyle = unbox ("translateX", value)
 
-type TranslateXTransform =
-    { translateX: float }
+    static member inline translateY(value: float) : ITransformsStyle = unbox ("translateY", value)
 
-    interface ITransform
-
-type TranslateYTransform =
-    { translateY: float }
-
-    interface ITransform
-
-type SkewXTransform =
-    { skewX: IAngle }
-
-    interface ITransform
-
-type SkewYTransform =
-    { skewY: IAngle }
-
-    interface ITransform
+    static member inline translateY(value: Animated.AnimatedValue) : ITransformsStyle = unbox ("translateY", value)
 
 
 type transforms =
-    interface ITransformsStyle
+    static member inline transform(style: ITransformsStyle) : ITransform = !!(createObj [ !!style ])
 
-    static member inline perspective(value: float) : ITransformsStyle =
-        unbox (createObj [ "perspective", value ])
+    static member inline perspective(value: float) =
+        transforms.transform (Transforms.perspective value)
 
     //TODO
     // {matrix: number[]},
-    static member inline rotate(value: IAngle) : ITransformsStyle = unbox (createObj [ "rotate", value ])
+    static member inline rotate(value: IAngle) : ITransform =
+        transforms.transform (Transforms.rotate value)
 
     //TODO:animated angle?
-    static member inline rotate(value: Animated.AnimatedValue) : ITransformsStyle =
-        unbox (createObj [ "rotate", value ])
+    static member inline rotate(value: Animated.AnimatedValue) : ITransform =
+        transforms.transform (Transforms.rotate value)
 
-    static member inline rotateX(value: IAngle) : ITransformsStyle = unbox (createObj [ "rotateX", value ])
+    static member inline rotateX(value: IAngle) : ITransform =
+        transforms.transform (Transforms.rotateX value)
 
-    static member inline rotateX(value: Animated.AnimatedValue) : ITransformsStyle =
-        unbox (createObj [ "rotateX", value ])
+    static member inline rotateX(value: Animated.AnimatedValue) : ITransform =
+        transforms.transform (Transforms.rotateX value)
 
-    static member inline rotateY(value: IAngle) : ITransformsStyle = unbox (createObj [ "rotateY", value ])
+    static member inline rotateY(value: IAngle) : ITransform =
+        transforms.transform (Transforms.rotateY value)
 
-    static member inline rotateY(value: Animated.AnimatedValue) : ITransformsStyle =
-        unbox (createObj [ "rotateY", value ])
+    static member inline rotateY(value: Animated.AnimatedValue) : ITransform =
+        transforms.transform (Transforms.rotateY value)
 
-    static member inline rotateZ(value: IAngle) : ITransformsStyle = unbox (createObj [ "rotateZ", value ])
+    static member inline rotateZ(value: IAngle) : ITransform =
+        transforms.transform (Transforms.rotateZ value)
 
-    static member inline rotateZ(value: Animated.AnimatedValue) : ITransformsStyle =
-        unbox (createObj [ "rotateZ", value ])
+    static member inline rotateZ(value: Animated.AnimatedValue) : ITransform =
+        transforms.transform (Transforms.rotateZ value)
 
-    static member inline scale(value: float) : ITransformsStyle = unbox (createObj [ "scale", value ])
-    static member inline scale(value: Animated.AnimatedValue) : ITransformsStyle = unbox (createObj [ "scale", value ])
-    static member inline scaleX(value: float) : ITransformsStyle = unbox (createObj [ "scaleX", value ])
+    static member inline scale(value: float) : ITransform =
+        transforms.transform (Transforms.scale value)
 
-    static member inline scaleX(value: Animated.AnimatedValue) : ITransformsStyle =
-        unbox (createObj [ "scaleX", value ])
+    static member inline scale(value: Animated.AnimatedValue) : ITransform =
+        transforms.transform (Transforms.scale value)
 
-    static member inline scaleY(value: float) : ITransformsStyle = unbox (createObj [ "scaleY", value ])
+    static member inline scaleX(value: float) : ITransform =
+        transforms.transform (Transforms.scaleX value)
 
-    static member inline scaleY(value: Animated.AnimatedValue) : ITransformsStyle =
-        unbox (createObj [ "scaleY", value ])
+    static member inline scaleX(value: Animated.AnimatedValue) : ITransform =
+        transforms.transform (Transforms.scaleX value)
 
-    static member inline skewX(value: float) : ITransformsStyle = unbox (createObj [ "skewX", value ])
-    static member inline skewX(value: Animated.AnimatedValue) : ITransformsStyle = unbox (createObj [ "skewX", value ])
-    static member inline skewY(value: float) : ITransformsStyle = unbox (createObj [ "skewY", value ])
-    static member inline skewY(value: Animated.AnimatedValue) : ITransformsStyle = unbox (createObj [ "skewY", value ])
+    static member inline scaleY(value: float) : ITransform =
+        transforms.transform (Transforms.scaleY value)
 
-    static member inline translateX(value: float) : ITransformsStyle =
-        unbox (createObj [ "translateX", value ])
+    static member inline scaleY(value: Animated.AnimatedValue) : ITransform =
+        transforms.transform (Transforms.scaleY value)
 
-    static member inline translateX(value: Animated.AnimatedValue) : ITransformsStyle =
-        unbox (createObj [ "translateX", value ])
+    static member inline skewX(value: float) : ITransform =
+        transforms.transform (Transforms.skewX value)
 
-    static member inline translateY(value: float) : ITransformsStyle =
-        unbox (createObj [ "translateY", value ])
+    static member inline skewX(value: Animated.AnimatedValue) : ITransform =
+        transforms.transform (Transforms.skewX value)
 
-    static member inline translateY(value: Animated.AnimatedValue) : ITransformsStyle =
-        unbox (createObj [ "translateY", value ])
+    static member inline skewY(value: float) : ITransform =
+        transforms.transform (Transforms.skewY value)
+
+    static member inline skewY(value: Animated.AnimatedValue) : ITransform =
+        transforms.transform (Transforms.skewY value)
+
+    static member inline translateX(value: float) : ITransform =
+        transforms.transform (Transforms.translateX value)
+
+    static member inline translateX(value: Animated.AnimatedValue) : ITransform =
+        transforms.transform (Transforms.translateX value)
+
+    static member inline translateY(value: float) : ITransform =
+        transforms.transform (Transforms.translateY value)
+
+    static member inline translateY(value: Animated.AnimatedValue) : ITransform =
+        transforms.transform (Transforms.translateY value)
 
 [<Erase>]
 type IAnimatedViewProperties = interface end
@@ -218,7 +219,7 @@ type style =
 
     static member inline shadowColor(x: string) : IStyleAttribute = Interop.mkStyle "shadowColor" x
 
-    static member inline transform(value: ITransformsStyle array) : IStyleAttribute = Interop.mkStyle "transform" value
+    static member inline transform(value: ITransform array) : IStyleAttribute = Interop.mkStyle "transform" value
 
 [<Erase>]
 type Prop<'a> =

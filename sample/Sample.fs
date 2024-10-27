@@ -39,6 +39,7 @@ let x =
           style.flex 1
           style.transform [ transform.translateY (20) ]
           style.transform [|
+            transforms.perspective (45)
             transforms.rotate (length.deg 45)
             transforms.rotateX (length.deg 45)
             transforms.rotateY (length.deg 45)
