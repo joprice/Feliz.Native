@@ -16,6 +16,18 @@ let interpolated =
   )
 
 let x =
+  let anim =
+    Animated.Globals.timing (
+      value,
+      jsOptions<Animated.TimingAnimationConfig> (fun o ->
+        o.toValue <- !^(1)
+        o.duration <- Some 100
+        o.isInteraction <- Some true
+        o.useNativeDriver <- Some false)
+    )
+
+  anim.start ()
+
   Native.view [
     view.style [ style.paddingTop 10 ]
     view.children [

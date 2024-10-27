@@ -2,6 +2,7 @@ namespace Feliz.Native
 
 open Fable.Core
 
+// see node_modules/react-native/Libraries/Animated/Animated.d.ts
 module Animated =
 
     type AnimatedValue = Animated
@@ -83,8 +84,8 @@ module Animated =
     and EndCallback = (EndResult -> unit)
 
     and CompositeAnimation =
-        abstract start: (EndCallback -> unit) with get, set
-        abstract stop: (unit -> unit) with get, set
+        abstract start: ?onEnd: EndCallback -> unit
+        abstract stop: (unit -> unit)
 
     and AnimationConfig =
         abstract isInteraction: bool option with get, set
@@ -132,41 +133,27 @@ module Animated =
     and EventConfig =
         abstract listener: obj option with get, set
 
-    // and AnimatedViewStatic =
-    //     inherit ViewStatic
-    //
-    // and AnimatedScrollViewStatic =
-    //     inherit ScrollViewStatic
-    //
-    // and AnimatedImageStatic =
-    //     inherit ImageStatic
-    //
-    // and AnimatedTextStatic =
-    //     inherit TextStatic
-
     [<Import("Animated", "react-native")>]
     type Globals =
         static member timing
-            with get (): (U2<AnimatedValue, AnimatedValueXY> -> TimingAnimationConfig -> CompositeAnimation) = jsNative
-            and set (v: (U2<AnimatedValue, AnimatedValueXY> -> TimingAnimationConfig -> CompositeAnimation)): unit =
-                jsNative
+            (value: U2<AnimatedValue, AnimatedValueXY>, config: TimingAnimationConfig)
+            : CompositeAnimation =
+            jsNative
+
+        static member timing(value: AnimatedValue, config: TimingAnimationConfig) : CompositeAnimation = jsNative
 
         static member spring
-            with get (): (U2<AnimatedValue, AnimatedValueXY> -> SpringAnimationConfig -> CompositeAnimation) = jsNative
-            and set (v: (U2<AnimatedValue, AnimatedValueXY> -> SpringAnimationConfig -> CompositeAnimation)): unit =
-                jsNative
+            (value: U2<AnimatedValue, AnimatedValueXY>, config: SpringAnimationConfig)
+            : CompositeAnimation =
+            jsNative
 
         static member ``parallel``
-            with get (): (ResizeArray<CompositeAnimation> -> ParallelConfig -> CompositeAnimation) = jsNative
-            and set (v: (ResizeArray<CompositeAnimation> -> ParallelConfig -> CompositeAnimation)): unit = jsNative
+            (animations: ResizeArray<CompositeAnimation>, config: ParallelConfig)
+            : CompositeAnimation =
+            jsNative
 
-        static member ``event``
-            with get (): (ResizeArray<Mapping> -> EventConfig -> (obj -> unit)) = jsNative
-            and set (v: (ResizeArray<Mapping> -> EventConfig -> (obj -> unit))): unit = jsNative
-        // static member View with get(): AnimatedViewStatic = jsNative and set(v: AnimatedViewStatic): unit = jsNative
-        // static member ScrollView with get(): AnimatedScrollViewStatic = jsNative and set(v: AnimatedScrollViewStatic): unit = jsNative
-        // static member Image with get(): AnimatedImageStatic = jsNative and set(v: AnimatedImageStatic): unit = jsNative
-        // static member Text with get(): AnimatedTextStatic = jsNative and set(v: AnimatedTextStatic): unit = jsNative
+        static member ``event``(argMapping: ResizeArray<Mapping>, config: EventConfig) : (obj -> unit) = jsNative
+
         static member decay
             (value: U2<AnimatedValue, AnimatedValueXY>, config: DecayAnimationConfig)
             : CompositeAnimation =
