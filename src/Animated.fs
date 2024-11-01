@@ -132,6 +132,7 @@ module Animated =
 
     and EventConfig =
         abstract listener: obj option with get, set
+        abstract useNativeDriver: bool option with get, set
 
     [<Import("Animated", "react-native")>]
     type Globals =
@@ -152,7 +153,7 @@ module Animated =
             : CompositeAnimation =
             jsNative
 
-        static member ``event``(argMapping: ResizeArray<Mapping>, config: EventConfig) : (obj -> unit) = jsNative
+        static member ``event``(argMapping: ResizeArray<Mapping>, ?config: EventConfig) : (obj -> unit) = jsNative
 
         static member decay
             (value: U2<AnimatedValue, AnimatedValueXY>, config: DecayAnimationConfig)
