@@ -3,6 +3,7 @@ namespace Feliz.Native
 open Fable.Core
 open Fable.Core.JsInterop
 open Feliz
+open Feliz.Styles
 
 [<Erase>]
 type ITransformsStyle = interface end
@@ -220,6 +221,18 @@ type style =
     static member inline shadowColor(x: string) : IStyleAttribute = Interop.mkStyle "shadowColor" x
 
     static member inline transform(value: ITransform array) : IStyleAttribute = Interop.mkStyle "transform" value
+
+    static member inline marginVertical(value: ICssUnit) = Interop.mkStyle "marginVertical" value
+
+    static member inline marginHorizontal(value: ICssUnit) =
+        Interop.mkStyle "marginHorizontal" value
+
+    static member inline marginBottom(value: ICssUnit) = Interop.mkStyle "marginBottom" value
+
+    static member inline paddingHorizontal(value: ICssUnit) =
+        Interop.mkStyle "paddingHorizontal" value
+
+    static member inline paddingVertical(value: ICssUnit) = Interop.mkStyle "paddingVertical" value
 
 [<Erase>]
 type Prop<'a> =

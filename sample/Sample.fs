@@ -29,7 +29,7 @@ let x =
   anim.start ()
 
   Native.view [
-    view.style [ style.paddingTop 10 ]
+    view.style [ style.paddingHorizontal (length.dip 10); style.paddingTop 10 ]
     view.children [
       Native.keyboardAvoidingView [ keyboardAvoidingView.style [] ]
       Native.animatedView [ animatedView.style [] ]
